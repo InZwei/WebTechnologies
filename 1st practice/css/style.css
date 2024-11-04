@@ -1,0 +1,126 @@
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;  
+    font-size: 14px;
+    width: 100%;	
+    line-height: 1;
+    font-family: Arial, sans-serif;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;  
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    transition: background-color 0.3s ease; 
+}
+
+.container {
+    background-color: #f8f9fa; 
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 1200px;  
+}
+
+header {
+    background-color: #ff6347bd;  
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+header h1 {
+    margin-bottom: 10px; 
+}
+
+nav ul {
+    list-style-type: none;
+    display: flex;
+    gap: 20px; 
+}
+
+nav ul li {
+    display: inline;
+}
+
+nav ul li a {
+    color: rgb(255, 255, 255);  
+    font-size: 1.2rem;
+}
+
+nav ul li a:hover {
+    text-decoration: underline;
+}
+
+
+input[type="text"], input[type="tel"], textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+textarea {
+    height: 100px;
+}
+
+input[type="submit"] {
+    background-color: #ff6347;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #e5533d;
+}
+
+main.flex-grow {
+    flex-grow: 1;
+}
+
+footer {
+    background-color: #ff6347bd; 
+    color: white;
+    padding: 10px;
+    text-align: center;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+.image-container {
+    height: 200px; 
+    overflow: hidden; 
+}
+
+.image-container img {
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+
+body.dark-mode {
+    background-color: #343a40;
+}
