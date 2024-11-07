@@ -37,25 +37,29 @@ This project is a simple food delivery website built using HTML, CSS, and JavaSc
 ## Project Structure
 
 WebTechnologies/ 
-├── code/ 
+ code/
 │ ├── index.html
 │ ├── order.html
 │ ├── contact.html
 │ ├── profile.html 
 │ └── authorization.html 
-├── css/ 
+
+css/ 
 │ └── style.css
-├── js/
+
+js/
 │ ├── auth.js
 │ ├── pagesJava.js
 │ └── profile.js
-├── images/ 
+
+images/ 
 │ └── default-profile.jpg
 │ └── background.jpg
 │ └── burger.jpg
 │ └── italianPasta.jpg
 │ └── pizza.jpg
-└── README.md 
+
+ README.md 
 
 
 
