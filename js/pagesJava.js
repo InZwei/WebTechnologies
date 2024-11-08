@@ -110,7 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
      const currentUser = localStorage.getItem('currentUser');
      if (!currentUser) {
-         window.location.href = 'authorization.html'; 
+         window.location.href = 'index.html'; 
      }
  
  
@@ -118,7 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
      if (logoutButton) { 
          logoutButton.addEventListener('click', () => {
              localStorage.removeItem('currentUser');
-             window.location.href = 'authorization.html'; 
+             window.location.href = 'index.html'; 
          });
      }
  

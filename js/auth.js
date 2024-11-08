@@ -89,11 +89,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             } else {
                 authLink.textContent = 'Login/Signup';
-                authLink.href = 'authorization.html';
+                authLink.href = 'index.html';
             }
         }
     
         updateAuthLinks();
 
-    showLogin(); //Show login form by default
+    showLogin();
 });

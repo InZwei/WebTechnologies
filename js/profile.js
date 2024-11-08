@@ -44,14 +44,14 @@ function displayProfileInfo() {
             `;
         } else {
             localStorage.removeItem('currentUser'); 
-            window.location.href = 'authorization.html';
+            window.location.href = 'index.html';
         }
     } else {
-        window.location.href = 'authorization.html';
+        window.location.href = 'index.html';
     }
 }
 
 function logout() {
     localStorage.removeItem('currentUser');
-    window.location.href = 'authorization.html'; 
+    window.location.href = 'index.html'; 
 }
