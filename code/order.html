@@ -36,7 +36,7 @@
                    <input type="text" id="name" name="name" required><br>
    
                    <label for="telephone">Telephone:</label>
-                   <input type="tel" id="phone" name="phone" pattern="[8]{1}-[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="8-700-123-45-67" required><br>
+                   <input type="tel" id="phone" name="phone" pattern="8-\d{3}-\d{3}-\d{4}" placeholder="8-700-123-4567" required><br>
    
                    <label for="address">Address:</label><br>
                    <input type="text" id="street" name="street" placeholder="Street Address" required><br>
@@ -84,12 +84,15 @@
        </div>     
    </main>
     
-    <footer>
-        <div>Group member: Kekilbaev Mansyr, IT-2308</div>
-        <p id="current-time"></p>
+   <footer> 
+    <div>Group member: Kekilbaev Mansyr, IT-2308</div>
+    <p id="current-time"></p>
+    <div id="weather-container">
+        <p>Loading weather...</p> 
+    </div>
     </footer>
-
-    
+    <script src="../js/profile.js"></script>
     <script src="../js/pagesJava.js"></script>
+    <script src="../js/weather.js"></script>
 </body>
 </html>

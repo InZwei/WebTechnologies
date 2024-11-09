@@ -1,33 +1,59 @@
 
-/*Date function */
 function dateTime() {
     document.getElementById("current-time").textContent = new Date().toLocaleString();
 }
 setInterval(dateTime, 1000);
 
-/*Background color changer*/
-document.addEventListener("DOMContentLoaded", function () {
-    document.getElementById("color-change").addEventListener("click", function () {
-        document.body.style.backgroundColor = "lightblue";
+
+document.addEventListener('DOMContentLoaded', function() {
+    const modeToggle = document.getElementById('mode-toggle');
+    const body = document.body;
+    const navbar = document.querySelector('.navbar');
+
+    const savedMode = localStorage.getItem('mode');
+    if (savedMode) {
+        body.classList.add(savedMode);
+        updateNavbar(savedMode); 
+    }
+
+
+    modeToggle.addEventListener('click', function() {
+        body.classList.toggle('dark-mode');
+        const currentMode = body.classList.contains('dark-mode') ? 'dark-mode' : 'light-mode';
+        localStorage.setItem('mode', currentMode);
+        updateNavbar(currentMode); 
     });
-    document.getElementById("color-change-default").addEventListener("click", function () {
-        document.body.style.backgroundColor = "white";
-    });
+
+
+    function updateNavbar(mode) {
+        if (mode === 'dark-mode') {
+
+            navbar.classList.remove('navbar-light', 'bg-light');
+            navbar.classList.add('navbar-dark', 'bg-dark');
+            modeToggle.classList.remove('btn-outline-secondary');
+            modeToggle.classList.add('btn-outline-light');
+
+        } else {
+
+            navbar.classList.remove('navbar-dark', 'bg-dark');
+            navbar.classList.add('navbar-light', 'bg-light');
+            modeToggle.classList.remove('btn-outline-light');
+            modeToggle.classList.add('btn-outline-secondary');
+        }
+    }
 });
 
-/*Content validator + Sound*/
+
 document.addEventListener("DOMContentLoaded", function () {
     const errorMessage = document.getElementById("error-message");
     const submitButton = document.getElementById("Submit");
     const clickSound = document.getElementById("clickSound");
 
     submitButton.addEventListener('click', function (event) {
-        
         clickSound.currentTime = 0; 
         clickSound.play();
 
         errorMessage.textContent = ""; 
-        
 
         if (document.getElementById("phone").value.trim() === "") {
             errorMessage.textContent = "Please enter a phone number."; 
@@ -48,7 +74,6 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
-/*FAQ*/
 document.addEventListener("DOMContentLoaded", function () {
     document.querySelectorAll(".faq-question").forEach(function (question) {
         question.addEventListener("click", function () {
@@ -63,7 +88,8 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-/*Basic animation*/
+
+
 document.addEventListener("DOMContentLoaded", () => {
     document.body.animate(
         [{ opacity: 0 }, { opacity: 1 }],
@@ -71,7 +97,7 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 });
 
-/*Rating */
+
 document.addEventListener('DOMContentLoaded', function () {
     const rating = document.getElementById('rating');
 
@@ -81,7 +107,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 })
 
-/*Price calculator*/
+
 document.addEventListener('DOMContentLoaded', function () {
     const form = document.querySelector('.order-form');
     const totalPriceSpan = document.getElementById('total-price');
@@ -102,62 +128,5 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 
         totalPriceSpan.textContent = `$${total}`;
-    }
-});
-
-/*User check*/
-document.addEventListener('DOMContentLoaded', () => {
-    
-     const currentUser = localStorage.getItem('currentUser');
-     if (!currentUser) {
-         window.location.href = 'index.html'; 
-     }
- 
- 
-     const logoutButton = document.querySelector('#logout-button'); 
-     if (logoutButton) { 
-         logoutButton.addEventListener('click', () => {
-             localStorage.removeItem('currentUser');
-             window.location.href = 'index.html'; 
-         });
-     }
- 
- });
-
-document.addEventListener('DOMContentLoaded', function() {
-    const modeToggle = document.getElementById('mode-toggle');
-    const body = document.body;
-    const navbar = document.querySelector('.navbar'); 
-
-    const savedMode = localStorage.getItem('mode');
-    if (savedMode) {
-        body.classList.add(savedMode);
-        updateNavbar(savedMode); 
-    }
-
-
-    modeToggle.addEventListener('click', function() {
-        body.classList.toggle('dark-mode');
-        const currentMode = body.classList.contains('dark-mode') ? 'dark-mode' : 'light-mode';
-
-        localStorage.setItem('mode', currentMode);
-        updateNavbar(currentMode);
-    });
-
-    function updateNavbar(mode) {
-        if (mode === 'dark-mode') {
-    
-            navbar.classList.remove('navbar-light', 'bg-light');
-            navbar.classList.add('navbar-dark', 'bg-dark');
-            modeToggle.classList.remove('btn-outline-secondary');
-            modeToggle.classList.add('btn-outline-light');
-    
-        } else {
-    
-            navbar.classList.remove('navbar-dark', 'bg-dark');
-            navbar.classList.add('navbar-light', 'bg-light');
-            modeToggle.classList.remove('btn-outline-light');
-            modeToggle.classList.add('btn-outline-secondary');
-        }
     }
 });
