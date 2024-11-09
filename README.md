@@ -37,12 +37,12 @@ This project is a simple food delivery website built using HTML, CSS, and JavaSc
 ## Project Structure
 
 WebTechnologies/ 
- code/
+ HTML/
  - index.html
  - order.html
  - contact.html
  - profile.html 
- - authorization.html
+ - index.html
 
 css/ 
  - style.css
