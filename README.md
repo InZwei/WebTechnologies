@@ -37,6 +37,7 @@ This project is a simple food delivery website built using HTML, CSS, and JavaSc
 ## Project Structure
 
 WebTechnologies/ 
+
  HTML/
  - index.html
  - order.html
@@ -73,4 +74,4 @@ images/
 * More robust form validation (including server-side validation).
 * Implementing actual order processing and storage (e.g., using a database).
 * Adding more interactive features and improving user experience.
-"Force rebuild" 
+  
