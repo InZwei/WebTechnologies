@@ -88,6 +88,93 @@ document.addEventListener('DOMContentLoaded', function() {
             modeToggle.classList.add('btn-outline-secondary');
         }
     }
+
+    const contactForm = document.getElementById('contact-form');
+    if (contactForm){
+        const errorMessage = document.getElementById("error-message");
+        const submitButton = document.getElementById("Submit");
+        const clickSound = document.getElementById("clickSound");
+
+        submitButton.addEventListener('click', function (event) {
+            clickSound.currentTime = 0; 
+            clickSound.play();
+
+            errorMessage.textContent = ""; 
+
+            if (document.getElementById("phone").value.trim() === "") {
+                errorMessage.textContent = "Please enter a phone number."; 
+                event.preventDefault();
+            } else if (document.getElementById("comment").value.trim() === "") {
+                errorMessage.textContent = "Please enter a comment."; 
+                event.preventDefault(); 
+            } else {
+                alert('Your message has been sent successfully!')
+            }
+        });
+
+        contactForm.addEventListener('keydown', function(event) { 
+            if (event.key === 'Enter') {
+                submitButton.click();
+            }
+        });
+    }
+
+
+
+
+
+    const orderForm = document.getElementById('order-form');
+    if (orderForm){
+        const submitOrderButton = orderForm.querySelector('input[type="submit"]');
+        const nameInput = document.getElementById('name');
+        const phoneInput = document.getElementById('phone');
+        const streetInput = document.getElementById('street');
+        const totalPriceSpan = document.getElementById('total-price');
+
+        submitOrderButton.addEventListener('click', function(event) {
+            event.preventDefault();
+
+
+            const orderItems = [];
+            const foodItems = document.querySelectorAll('.food-item .quantity');
+            foodItems.forEach(item => {
+                const quantity = parseInt(item.value) || 0;
+                if (quantity > 0) {
+                    orderItems.push({
+                        name: item.dataset.name,
+                        quantity: quantity,
+                        price: dishes.find(dish => dish.name === item.dataset.name).price,
+                    });
+                }
+            });
+            const drinkItems = document.querySelectorAll('.drink-item .quantity');
+            drinkItems.forEach(item => {
+                const quantity = parseInt(item.value) || 0;
+                if (quantity > 0) {
+                    orderItems.push({
+                        name: item.dataset.name,
+                        quantity: quantity,
+                        price: drinks.find(drink => drink.name === item.dataset.name).price,
+                    });
+                }
+            });
+
+
+            const orderData = {
+                date: new Date().toLocaleString(),
+                name: nameInput.value,
+                phone: phoneInput.value,
+                street: streetInput.value,
+                items: orderItems,
+                total: parseFloat(totalPriceSpan.textContent.replace('$', '')) 
+            };
+
+            saveOrder(orderData);
+
+            alert('Order placed successfully!');
+        });
+    }
+
 });
 
 
@@ -156,24 +243,55 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 document.addEventListener('DOMContentLoaded', function () {
-    const form = document.querySelector('.order-form');
+    const form = document.getElementById('order-form');
     const totalPriceSpan = document.getElementById('total-price');
+    const foodItems = document.querySelectorAll('.food-item');
+    const drinkItems = document.querySelectorAll('.drink-item');
 
-    form.addEventListener('change', updateTotalPrice);
 
     function updateTotalPrice() {
         let total = 0;
-        const selectedFoods = form.querySelectorAll('input[name="food[]"]:checked');
-        const selectedDrinks = form.querySelectorAll('input[name="drink[]"]:checked');
 
-        selectedFoods.forEach(function (item) {
-            total += parseInt(item.value.match(/\$(\d+)/)[1]);
+        foodItems.forEach(item => {
+            const checkbox = item.querySelector('input[type="checkbox"]');
+            const quantityInput = item.querySelector('.quantity');
+            if (checkbox.checked) {
+                const price = parseInt(checkbox.nextElementSibling.textContent.match(/\$(\d+)/)[1]);
+                const quantity = parseInt(quantityInput.value) || 0;
+                if (quantity > 0){
+                    total += price * quantity;
+                }
+            }
         });
 
-        selectedDrinks.forEach(function (item) {
-            total += parseInt(item.value.match(/\$(\d+)/)[1]);
+
+        drinkItems.forEach(item => {
+            const checkbox = item.querySelector('input[type="checkbox"]');
+            const quantityInput = item.querySelector('.quantity');
+            if (checkbox.checked) {
+                const price = parseInt(checkbox.nextElementSibling.textContent.match(/\$(\d+)/)[1]);
+                const quantity = parseInt(quantityInput.value) || 0;
+                if (quantity > 0){
+                    total += price * quantity;
+                }
+                
+            }
         });
 
         totalPriceSpan.textContent = `$${total}`;
     }
+
+    foodItems.forEach(item => {
+        const checkbox = item.querySelector('input[type="checkbox"]');
+        const quantityInput = item.querySelector('.quantity');
+        checkbox.addEventListener('change', updateTotalPrice);
+        quantityInput.addEventListener('input', updateTotalPrice); 
+    });
+
+    drinkItems.forEach(item => {
+        const checkbox = item.querySelector('input[type="checkbox"]');
+        const quantityInput = item.querySelector('.quantity');
+        checkbox.addEventListener('change', updateTotalPrice);
+        quantityInput.addEventListener('input', updateTotalPrice);
+    });
 });

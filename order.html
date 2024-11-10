@@ -32,41 +32,20 @@
         <div class="container">
            <section class="order-form">
                <h2>Order Form</h2>
-                   <label for="name">Full Name:</label>
-                   <input type="text" id="name" name="name" required><br>
-   
-                   <label for="telephone">Telephone:</label>
-                   <input type="tel" id="phone" name="phone" pattern="8-\d{3}-\d{3}-\d{4}" placeholder="8-700-123-4567" required><br>
-   
-                   <label for="address">Address:</label><br>
-                   <input type="text" id="street" name="street" placeholder="Street Address" required><br>
-   
-                   <label for="food">Select Your Food:</label>
-                   <div>
-                       <input type="checkbox" id="pizza" name="food[]" value="Pizza ($10)">
-                       <label for="pizza">Pizza ($10)</label><br>
-   
-                       <input type="checkbox" id="burger" name="food[]" value="Burger ($8)">
-                       <label for="burger">Burger ($8)</label><br>
-   
-                       <input type="checkbox" id="pasta" name="food[]" value="Pasta ($12)">
-                       <label for="pasta">Pasta ($12)</label><br>
-                       
-                       <input type="checkbox" id="salad" name="food[]" value="Salad ($7)">
-                       <label for="salad">Salad ($7)</label><br>
-                   </div> <br>
-   
-                   <label for="drink">Select Your Drink:</label>
-                   <div>
-                       <input type="checkbox" id="cola" name="drink[]" value="Cola ($2)">
-                       <label for="cola">Cola ($2)</label><br>
-                       <input type="checkbox" id="juice" name="drink[]" value="Juice ($3)">
-                       <label for="juice">Juice ($3)</label><br>
-                       <input type="checkbox" id="water" name="drink[]" value="Water ($1)">
-                       <label for="water">Water ($1)</label><br>
-                   </div> <br>
-   
-                   <label for="rating">Rate your experience:</label>
+               <form id="order-form"> 
+                <label for="name">Full Name:</label>
+                <input type="text" id="name" name="name" required><br>
+
+                <label for="telephone">Telephone:</label>
+                <input type="tel" id="phone" name="phone" pattern="8-\d{3}-\d{3}-\d{4}" placeholder="8-700-123-4567" required><br>
+
+                <label for="address">Address:</label><br>
+                <input type="text" id="street" name="street" placeholder="Street Address" required><br>
+                
+                <div id="food-items"></div><br>
+                <div id = "drink-items"></div><br>
+
+                 <label for="rating">Rate your experience:</label>
                     <select id="rating" name="rating">
                         <option value="5">🌟🌟🌟🌟🌟</option>
                         <option value="4">🌟🌟🌟🌟</option>
@@ -76,14 +55,13 @@
                     </select>
                     <br>
 
-                    <h3>Total Price: <span id="total-price">Calculated on selection</span></h3>
-                    <form id="submit-form">
-                        <input type="submit" value="Order" class="submit-button">
-                        <audio id="clickSound" src="on_click.wav" preload="auto"></audio>
-                    </form>
+                 <h3>Total Price: <span id="total-price">$0</span></h3>
+                 <input type="submit" value="Order" class="submit-button">
+            </form>
            </section>
        </div>     
    </main>
+
     
    <footer> 
     <div>Group member: Kekilbaev Mansyr, IT-2308</div>
@@ -92,8 +70,8 @@
         <p>Loading weather...</p> 
     </div>
     </footer>
-    <script src="profile.js"></script>
     <script src="pagesJava.js"></script>
     <script src="weather.js"></script>
+    <script src="history.js"></script>
 </body>
 </html>

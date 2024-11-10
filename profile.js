@@ -7,10 +7,10 @@ document.addEventListener('DOMContentLoaded', () => {
     function loadProfilePicture() {
         const profileImage = document.getElementById('profile-image');
         const imageUpload = document.getElementById('image-upload');
-        const currentUser = localStorage.getItem('currentUser'); // Correctly get username
+        const currentUser = localStorage.getItem('currentUser');
 
         if (currentUser) {
-            const storageKey = `profilePicture_${currentUser}`; // Unique key per user
+            const storageKey = `profilePicture_${currentUser}`; 
             const storedImage = localStorage.getItem(storageKey);
 
             if (storedImage) {
@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     reader.onload = (e) => {
                         profileImage.src = e.target.result;
-                        localStorage.setItem(storageKey, e.target.result); // Use unique key
+                        localStorage.setItem(storageKey, e.target.result); 
                     };
                     reader.readAsDataURL(file);
                 }
