@@ -67,6 +67,28 @@ const drinks = [
     { name: "Water", price: 1 }
 ];
 
+const foodItemsContainer = document.getElementById('food-items');
+dishes.forEach(dish => {
+    const foodItemDiv = document.createElement('div');
+    foodItemDiv.className = 'food-item';
+    foodItemDiv.innerHTML = `
+        <input type="checkbox" id="${dish.name.toLowerCase().replace(' ', '-')}" name="food[]" value="${dish.name}" data-name="${dish.name}">
+        <label for="${dish.name.toLowerCase().replace(' ', '-')}">${dish.name} ($${dish.price})</label>
+        <input type="number" class="quantity" data-name="${dish.name}"  value="0" min="0">
+    `;
+    foodItemsContainer.appendChild(foodItemDiv);
+});
+const drinkItemsContainer = document.getElementById('drink-items');
+drinks.forEach(drink => {
+    const drinkItemDiv = document.createElement('div');
+    drinkItemDiv.className = 'drink-item';
+    drinkItemDiv.innerHTML = `
+        <input type="checkbox" id="${drink.name.toLowerCase().replace(' ', '-')}" name="drink[]" value="${drink.name}" data-name="${drink.name}">
+        <label for="${drink.name.toLowerCase().replace(' ', '-')}">${drink.name} ($${drink.price})</label>
+        <input type="number" class="quantity" data-name="${drink.name}" value="0" min="0">
+    `;
+    drinkItemsContainer.appendChild(drinkItemDiv);
+});
 
 document.getElementById('order-form').addEventListener('submit', function(event) {
             event.preventDefault();
