@@ -4,6 +4,53 @@ function dateTime() {
 }
 setInterval(dateTime, 1000);
 
+function playClickSound() {
+    const clickSound = document.getElementById('clickSound'); 
+    if (clickSound) {
+        clickSound.currentTime = 0; 
+        clickSound.play();
+    }
+}
+
+function animateButton(button) {
+    button.addEventListener('click', playClickSound);
+
+    button.addEventListener('mouseover', () => {
+        button.style.transform = 'scale(1.05)';
+    });
+    button.addEventListener('mouseout', () => {
+        button.style.transform = 'scale(1)';
+    });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    const logoutButton = document.querySelector('.btn.btn-primary:not(#login-button):not(#signup-button)'); // Select logout button, excluding login/signup
+    if (logoutButton) {
+        animateButton(logoutButton);
+    }
+
+    const toggleModeButton = document.getElementById('mode-toggle');
+    if (toggleModeButton) {
+        animateButton(toggleModeButton);
+    }
+
+    const contactSubmitButton = document.getElementById('Submit');
+    if (contactSubmitButton) {
+        animateButton(contactSubmitButton);
+    }
+
+    const orderSubmitButton = document.querySelector('.submit-button');
+    if(orderSubmitButton) {
+        animateButton(orderSubmitButton);
+    }
+
+     const imageUpload = document.getElementById('image-upload');
+     if (imageUpload) {
+        imageUpload.addEventListener('change', playClickSound); 
+     }
+});
+
 
 document.addEventListener('DOMContentLoaded', function() {
     const modeToggle = document.getElementById('mode-toggle');

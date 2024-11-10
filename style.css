@@ -6,14 +6,11 @@
 }
 
 html, body {
-    height: 100%;  
-    font-size: 14px;
-    width: 100%;	
-    line-height: 1;
+    height: 100%;
     font-family: Arial, sans-serif;
     background-size: cover;
     background-position: center;
-    background-attachment: fixed;  
+    background-attachment: fixed;
     margin: 0;
     padding: 0;
 }
@@ -21,60 +18,72 @@ html, body {
 body {
     display: flex;
     flex-direction: column;
-    transition: background-color 0.3s ease; 
+    transition: background-color 0.3s ease;
+    font-size: 16px; 
+    line-height: 1.5; 
 }
 
 .container {
-    background-color: #f8f9fa; 
+    background-color: #f8f9fa;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  
-    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 15px; 
     margin: 20px auto;
-    max-width: 1200px;  
+    max-width: 1200px;
+    border: 1px solid #ced4da;  
 }
 
+
 header {
-    background-color: #ff6347bd;  
+    background-color: #ff6347bd;
     color: white;
     padding: 20px;
     text-align: center;
 }
 
 header h1 {
-    margin-bottom: 10px; 
+    margin-bottom: 10px;
 }
 
 nav ul {
-    list-style-type: none;
-    display: flex;
-    gap: 20px; 
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
-nav ul li {
-    display: inline;
+nav li {
+    display: block; 
+    margin-bottom: 10px;
+    text-align: center;
+
 }
 
-nav ul li a {
-    color: rgb(255, 255, 255);  
+nav a {
+    display: block; 
+    color: white;
+    padding: 8px 12px;
     font-size: 1.2rem;
 }
 
-nav ul li a:hover {
+nav a:hover {
     text-decoration: underline;
 }
 
 
-input[type="text"], input[type="tel"], textarea {
+
+input[type="text"], input[type="tel"], input[type="email"], input[type="password"], textarea, select {
     width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 5px;
-    border: 1px solid #ccc;
+    padding: 12px;
+    margin-bottom: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    box-sizing: border-box;
 }
 
 textarea {
     height: 100px;
 }
+
 
 input[type="submit"] {
     background-color: #ff6347;
@@ -83,6 +92,9 @@ input[type="submit"] {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    display: block; 
+    margin-bottom: 10px;
+    width: 100%;
 }
 
 input[type="submit"]:hover {
@@ -94,7 +106,7 @@ main.flex-grow {
 }
 
 footer {
-    background-color: #ff6347bd; 
+    background-color: #ff6347bd;
     color: white;
     padding: 10px;
     text-align: center;
@@ -104,20 +116,29 @@ footer {
 }
 
 .image-container {
-    height: 200px; 
-    overflow: hidden; 
+    height: 200px;
+    overflow: hidden;
 }
 
 .image-container img {
-    width: 100%; 
-    height: 100%; 
-    object-fit: cover; 
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
-.card-body {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
+
+
+.main-dishes .card {
+    margin: 10px;
+    padding: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+
+}
+
+.main-dishes .card:hover {
+    transform: scale(1.05);
 }
 
 
@@ -126,17 +147,70 @@ body.dark-mode {
 }
 
 
+.card-body { 
+    text-align: center;
+}
+
 #profile-picture {
     display: flex;
-    align-items: center; 
-    margin-bottom: 20px;  
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
 }
 
 #profile-image {
-    width: 100px;          
-    height: 100px;
-    border-radius: 50%;   
-    object-fit: cover;   
-    margin-right: 10px;  
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
 }
 
+
+.btn {  
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+
+
+@media (min-width: 768px) {
+    .container {
+        padding: 20px;
+    }
+
+    nav ul {
+        display: flex;
+        justify-content: flex-end;
+        gap: 20px;
+    }
+
+    nav li {
+        display: inline-block;
+        margin-bottom: 0;
+        text-align: left;
+    }
+
+
+    .btn { 
+        display: inline-block;
+        width: auto;
+    }
+
+
+    #profile-picture {
+        flex-direction: row;
+    }
+
+    #profile-image {
+        margin-right: 20px;
+        margin-bottom: 0;
+    }
+
+
+    .main-dishes .col-lg-4, .col-md-6  {
+        margin-bottom: 20px;
+    }
+
+}

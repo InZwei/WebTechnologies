@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded', () => {
     const loginSection = document.getElementById('login-section');
     const signupSection = document.getElementById('signup-section');
@@ -12,18 +11,15 @@ document.addEventListener('DOMContentLoaded', () => {
         const email = form.querySelector('#signup-email').value;
         const phone = form.querySelector('#signup-phone').value;
 
-
         if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/.test(password)) {
             alert("Password must be at least 8 characters and contain at least one uppercase letter, one lowercase letter, and one number.");
             isValid = false;
         }
 
-
         if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
             alert("Please enter a valid email address.");
             isValid = false;
         }
-
 
         if (!/^8-\d{3}-\d{3}-\d{4}$/.test(phone)) {
             alert("Please enter a valid phone number (format: 8-XXX-XXX-XXXX).");
@@ -37,49 +33,53 @@ document.addEventListener('DOMContentLoaded', () => {
         const username = document.getElementById('login-username').value;
         const password = document.getElementById('login-password').value;
 
-        const storedUsers = JSON.parse(localStorage.getItem('users')) || [];
-        const user = storedUsers.find(user => user.username === username && user.password === password);
+        if (typeof localStorage !== 'undefined') {
+            const storedUsers = JSON.parse(localStorage.getItem('users')) || [];
+            const user = storedUsers.find(user => user.username === username && user.password === password);
 
-        if (user) {
-            localStorage.setItem('currentUser', username);
-            alert("Login successful!");
-            window.location.href = "main.html";
+            if (user) {
+                localStorage.setItem('currentUser', username);
+                window.location.href = "main.html";
+            } else {
+                console.error("Incorrect username or password.");
+                const loginError = document.createElement('p');
+                loginError.textContent = 'Incorrect username or password.';
+                loginError.style.color = 'red';
+                loginSection.appendChild(loginError); 
+            }
         } else {
-            alert("Incorrect username or password.");
+            console.error("Local Storage is not supported by this browser.");
         }
     });
 
     signupButton.addEventListener('click', (event) => {
         const signupForm = document.getElementById('auth-form');
         if (!validateForm(signupForm)) {
-            event.preventDefault(); 
+            event.preventDefault();
             return;
         }
-
 
         const username = document.getElementById('signup-username').value;
         const password = document.getElementById('signup-password').value;
         const email = document.getElementById('signup-email').value;
         const phone = document.getElementById('signup-phone').value;
 
+        if (typeof localStorage !== 'undefined') {
+            const storedUsers = JSON.parse(localStorage.getItem('users')) || [];
 
-        const storedUsers = JSON.parse(localStorage.getItem('users')) || [];
+            if (storedUsers.find(user => user.username === username)) {
+                alert('Username already exists.');
+                return;
+            }
 
-
-        if (storedUsers.find(user => user.username === username)) {
-            alert('Username already exists.');
-            return;
+            const newUser = { username, password, email, phone };
+            storedUsers.push(newUser);
+            localStorage.setItem('users', JSON.stringify(storedUsers));
+            localStorage.setItem('currentUser', username);
+            window.location.href = 'profile.html'; 
+        } else {
+            console.error("Local Storage is not supported.");
         }
-
-
-
-        const newUser = { username, password, email, phone };
-
-        storedUsers.push(newUser);
-        localStorage.setItem('users', JSON.stringify(storedUsers));
-
-        localStorage.setItem('currentUser', username);
-        window.location.href = 'profile.html'; 
     });
 
     toggleFormButton.addEventListener('click', () => {
@@ -90,19 +90,19 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-
     function updateAuthLinks() {
         const authLink = document.getElementById('auth-link');
-        const currentUser = localStorage.getItem('currentUser');
+        const currentUser = typeof localStorage !== 'undefined' ? localStorage.getItem('currentUser') : null;
 
         if (currentUser) {
             authLink.textContent = 'Logout';
             authLink.href = '#';
             authLink.addEventListener('click', () => {
-                localStorage.removeItem('currentUser');
+               if (typeof localStorage !== 'undefined') {
+                    localStorage.removeItem('currentUser');
+                }
                 updateAuthLinks();
-                alert("Logged out successfully!");
-                window.location.href = "main.html";
+                window.location.href = "main.html"; 
             });
         } else {
             authLink.textContent = 'Login/Signup';
@@ -111,6 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     updateAuthLinks();
+
 
     function showLogin() {
         loginSection.style.display = 'block';

@@ -2,36 +2,33 @@
 document.addEventListener('DOMContentLoaded', () => {
     displayProfileInfo();
     loadProfilePicture();
-    displayOrderHistory();
     
 
     function loadProfilePicture() {
         const profileImage = document.getElementById('profile-image');
         const imageUpload = document.getElementById('image-upload');
-    
-        const currentUser = localStorage.getItem('currentUser'); 
-    
+        const currentUser = localStorage.getItem('currentUser'); // Correctly get username
+
         if (currentUser) {
-            const storedImage = localStorage.getItem(`profilePicture_${currentUser}`); 
+            const storageKey = `profilePicture_${currentUser}`; // Unique key per user
+            const storedImage = localStorage.getItem(storageKey);
+
             if (storedImage) {
                 profileImage.src = storedImage;
             }
-    
-    
-    
+
             imageUpload.addEventListener('change', (event) => {
                 const file = event.target.files[0];
-        
-                if (file) { 
+
+                if (file) {
                     const reader = new FileReader();
-        
+
                     reader.onload = (e) => {
                         profileImage.src = e.target.result;
-                        localStorage.setItem('profilePicture', e.target.result); 
+                        localStorage.setItem(storageKey, e.target.result); // Use unique key
                     };
                     reader.readAsDataURL(file);
                 }
-                localStorage.setItem(`profilePicture_${currentUser}`, e.target.result);
             });
         }
     }
