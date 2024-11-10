@@ -35,7 +35,6 @@ This project is a simple food delivery website built using HTML, CSS, and JavaSc
 
 ## Future Improvements
 
-* Enhanced search and filtering with local storage persistence.
 * More advanced form validation, including server-side validation.
 * Implementing actual order processing and a database.
 * Implementing a shopping cart.
