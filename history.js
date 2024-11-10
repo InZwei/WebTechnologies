@@ -68,27 +68,58 @@ const drinks = [
 ];
 
 
+document.getElementById('order-form').addEventListener('submit', function(event) {
+            event.preventDefault();
 
-const foodItemsContainer = document.getElementById('food-items');
-dishes.forEach(dish => {
-    const foodItemDiv = document.createElement('div');
-    foodItemDiv.className = 'food-item';
-    foodItemDiv.innerHTML = `
-        <input type="checkbox" id="${dish.name.toLowerCase().replace(' ', '-')}" name="food[]" value="${dish.name}" data-name="${dish.name}">
-        <label for="${dish.name.toLowerCase().replace(' ', '-')}">${dish.name} ($${dish.price})</label>
-        <input type="number" class="quantity" data-name="${dish.name}"  value="0" min="0">
-    `;
-    foodItemsContainer.appendChild(foodItemDiv);
-});
+            const name = document.getElementById('name').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const street = document.getElementById('street').value.trim();
+            let hasItems = false;
 
-const drinkItemsContainer = document.getElementById('drink-items');
-drinks.forEach(drink => {
-    const drinkItemDiv = document.createElement('div');
-    drinkItemDiv.className = 'drink-item';
-    drinkItemDiv.innerHTML = `
-        <input type="checkbox" id="${drink.name.toLowerCase().replace(' ', '-')}" name="drink[]" value="${drink.name}" data-name="${drink.name}">
-        <label for="${drink.name.toLowerCase().replace(' ', '-')}">${drink.name} ($${drink.price})</label>
-        <input type="number" class="quantity" data-name="${drink.name}" value="0" min="0">
-    `;
-    drinkItemsContainer.appendChild(drinkItemDiv);
+
+            const orderItems = [];
+            const foodItems = document.querySelectorAll('.food-item .quantity');
+            foodItems.forEach(item => {
+                const quantity = parseInt(item.value) || 0;
+                if (quantity > 0) {
+                    hasItems = true; // Set to true if any item is selected.
+                    orderItems.push({
+                        name: item.dataset.name,
+                        quantity,
+                        price: dishes.find(d => d.name === item.dataset.name).price
+                    });
+                }
+            });
+    
+            const drinkItems = document.querySelectorAll('.drink-item .quantity');
+            drinkItems.forEach(item => {
+                const quantity = parseInt(item.value) || 0;
+                if (quantity > 0) {
+                    hasItems = true;
+                    orderItems.push({
+                        name: item.dataset.name,
+                        quantity,
+                        price: drinks.find(d => d.name === item.dataset.name).price
+                    });
+                }
+            });
+
+            if (!name || !phone || !street || !hasItems) {
+                alert('Please fill in all fields and select at least one item.');
+                return; 
+            }
+
+            const orderData = {
+                date: new Date().toLocaleString(),
+                name,
+                phone,
+                street,
+                items: orderItems,
+                total: parseFloat(document.getElementById('total-price').textContent.replace('$', ''))
+            };
+
+            saveOrder(orderData);
+            alert('Order placed successfully!');
+            this.reset(); 
+            document.getElementById('total-price').textContent = '$0';
 });
