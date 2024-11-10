@@ -45,3 +45,4 @@ This project is a simple food delivery website built using HTML, CSS, and JavaSc
 
 * Profile picture doesn't save after uploading one
 * Profile picture might be shared across other accounts in one device (due to local storage)
+* (Both solved)
