@@ -48,6 +48,7 @@ function saveOrder(orderData) {
     }
 }
 
+
 const dishes = [
     { name: "Pizza", price: 10 },
     { name: "Burger", price: 8 },
@@ -78,6 +79,7 @@ dishes.forEach(dish => {
     `;
     foodItemsContainer.appendChild(foodItemDiv);
 });
+
 const drinkItemsContainer = document.getElementById('drink-items');
 drinks.forEach(drink => {
     const drinkItemDiv = document.createElement('div');
@@ -91,57 +93,62 @@ drinks.forEach(drink => {
 });
 
 document.getElementById('order-form').addEventListener('submit', function(event) {
-            event.preventDefault();
+    event.preventDefault();
 
-            const name = document.getElementById('name').value.trim();
-            const phone = document.getElementById('phone').value.trim();
-            const street = document.getElementById('street').value.trim();
-            let hasItems = false;
+    const name = document.getElementById('name').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const street = document.getElementById('street').value.trim();
+    let hasItems = false;
 
-
-            const orderItems = [];
-            const foodItems = document.querySelectorAll('.food-item .quantity');
-            foodItems.forEach(item => {
-                const quantity = parseInt(item.value) || 0;
-                if (quantity > 0) {
-                    hasItems = true; // Set to true if any item is selected.
-                    orderItems.push({
-                        name: item.dataset.name,
-                        quantity,
-                        price: dishes.find(d => d.name === item.dataset.name).price
-                    });
-                }
+    const orderItems = [];
+    const foodItems = document.querySelectorAll('.food-item .quantity');
+    foodItems.forEach(item => {
+        const quantity = parseInt(item.value) || 0;
+        if (quantity > 0) {
+            hasItems = true;
+            orderItems.push({
+                name: item.dataset.name,
+                quantity,
+                price: dishes.find(d => d.name === item.dataset.name).price
             });
-    
-            const drinkItems = document.querySelectorAll('.drink-item .quantity');
-            drinkItems.forEach(item => {
-                const quantity = parseInt(item.value) || 0;
-                if (quantity > 0) {
-                    hasItems = true;
-                    orderItems.push({
-                        name: item.dataset.name,
-                        quantity,
-                        price: drinks.find(d => d.name === item.dataset.name).price
-                    });
-                }
+        }
+    });
+
+    const drinkItems = document.querySelectorAll('.drink-item .quantity');
+    drinkItems.forEach(item => {
+        const quantity = parseInt(item.value) || 0;
+        if (quantity > 0) {
+            hasItems = true;
+            orderItems.push({
+                name: item.dataset.name,
+                quantity,
+                price: drinks.find(d => d.name === item.dataset.name).price
             });
+        }
+    });
 
-            if (!name || !phone || !street || !hasItems) {
-                alert('Please fill in all fields and select at least one item.');
-                return; 
-            }
+    if (!name || !phone || !street || !hasItems) {
+        alert('Please fill in all fields and select at least one item.');
+        return;
+    }
 
-            const orderData = {
-                date: new Date().toLocaleString(),
-                name,
-                phone,
-                street,
-                items: orderItems,
-                total: parseFloat(document.getElementById('total-price').textContent.replace('$', ''))
-            };
+    const orderData = {
+        date: new Date().toLocaleString(),
+        name,
+        phone,
+        street,
+        items: orderItems,
+        total: parseFloat(document.getElementById('total-price').textContent.replace('$', ''))
+    };
 
-            saveOrder(orderData);
-            alert('Order placed successfully!');
-            this.reset(); 
-            document.getElementById('total-price').textContent = '$0';
+    saveOrder(orderData);
+    alert('Order placed successfully!');
+    this.reset();
+    document.getElementById('total-price').textContent = '$0';
+});
+
+const checkboxesAndQuantities = document.querySelectorAll('.food-item input[type="checkbox"], .food-item .quantity, .drink-item input[type="checkbox"], .drink-item .quantity');
+checkboxesAndQuantities.forEach(element => {
+    element.addEventListener('change', updateTotalPrice);
+    element.addEventListener('input', updateTotalPrice);
 });
