@@ -29,9 +29,9 @@ This project is a simple food delivery website built using HTML, CSS, and JavaSc
 7. **Profile:** View your profile information, order history, and upload a profile picture after logging in.
 
 
-## Live Demo
+##Demo
 
-[[https://inzwei.github.io/WebTechnologies/](https://inzwei.github.io/WebTechnologies/)](https://inzwei.github.io/WebTechnologies/)
+[[https://inzwei.github.io/WebTechnologies/]
 
 ## Future Improvements
 
