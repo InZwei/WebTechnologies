@@ -299,7 +299,7 @@ const dishes = [
     },
     {
         name: "Italian pasta",
-        image: "italianPastA.jpg"
+        image: "italianPasta.jpg"
     },
     {
         name: "Spicy Chicken Tacos",
