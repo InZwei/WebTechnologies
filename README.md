@@ -31,7 +31,7 @@ This project is a simple food delivery website built using HTML, CSS, and JavaSc
 
 ## Live Demo
 
-[https://inzwei.github.io/WebTechnologies/](https://inzwei.github.io/WebTechnologies/)
+[[https://inzwei.github.io/WebTechnologies/](https://inzwei.github.io/WebTechnologies/)](https://inzwei.github.io/WebTechnologies/)
 
 ## Future Improvements
 
