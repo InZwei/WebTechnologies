@@ -4,6 +4,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (currentUser) {
         displayOrderHistory();
     }
+
+    const form = document.getElementById('order-form');
+    form.addEventListener('submit', handleOrderSubmit);
 });
 
 function displayOrderHistory() {
@@ -92,3 +95,6 @@ drinks.forEach(drink => {
     `;
     drinkItemsContainer.appendChild(drinkItemDiv);
 });
+
+
+

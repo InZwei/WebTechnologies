@@ -16,17 +16,19 @@
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">Food Delivery</a>
-                <div class="collapse navbar-collapse">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item"><a class="nav-link" href="main.html">Home</a></li>
                         <li class="nav-item"><a class="nav-link" href="order.html">Order Now</a></li>
                         <li class="nav-item"><a class="nav-link" href="contact.html">Contact Us</a></li>
                         <li class="nav-item"><a class="nav-link active" href="profile.html">Profile</a></li>
-                      
-                    </ul> 
-                </div>  
-                <button onclick="logout()" class="btn btn-primary ms-2">Logout</button> 
-                <button id="mode-toggle" class="btn btn-outline-secondary" >Toggle Mode</button> 
+                    </ul>
+                </div>
+                <button onclick="logout()" class="btn btn-primary ms-2">Logout</button>
+                <button id="mode-toggle" class="btn btn-outline-secondary">Toggle Mode</button>
             </div>
         </nav>
 
@@ -46,8 +48,6 @@
                 </section>
             </div>
         </main>
-    
-   
 
     <footer> 
         <div>Group member: Kekilbaev Mansyr, IT-2308</div>
@@ -56,10 +56,11 @@
             <p>Loading weather...</p> 
         </div>
         </footer>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
         <script src="profile.js"></script>
         <script src="pagesJava.js"></script>
         <script src="weather.js"></script>
-        <script src="menu.js"></script>
+
 </body>
 
 </html>

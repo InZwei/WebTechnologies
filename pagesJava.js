@@ -23,6 +23,7 @@ function animateButton(button) {
     });
 }
 
+
 document.addEventListener('DOMContentLoaded', () => {
 
     const logoutButton = document.querySelector('.btn.btn-primary:not(#login-button):not(#signup-button)'); // Select logout button, excluding login/signup
@@ -52,6 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
+//Toggle + button sound
 document.addEventListener('DOMContentLoaded', function() {
     const modeToggle = document.getElementById('mode-toggle');
     const body = document.body;
@@ -178,6 +180,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
+//Content validator
 document.addEventListener("DOMContentLoaded", function () {
     const errorMessage = document.getElementById("error-message");
     const submitButton = document.getElementById("Submit");
@@ -208,22 +211,8 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
-document.addEventListener("DOMContentLoaded", function () {
-    document.querySelectorAll(".faq-question").forEach(function (question) {
-        question.addEventListener("click", function () {
-            const answer = this.nextElementSibling; 
 
-            if (answer.style.display === "block") {
-                answer.style.display = "none"; 
-            } else {
-                answer.style.display = "block";
-            }
-        });
-    });
-});
-
-
-
+//fade animation
 document.addEventListener("DOMContentLoaded", () => {
     document.body.animate(
         [{ opacity: 0 }, { opacity: 1 }],
@@ -232,6 +221,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
+//rating
 document.addEventListener('DOMContentLoaded', function () {
     const rating = document.getElementById('rating');
 
@@ -242,6 +232,7 @@ document.addEventListener('DOMContentLoaded', function () {
 })
 
 
+//Price
 document.addEventListener('DOMContentLoaded', function () {
     const form = document.getElementById('order-form');
     const totalPriceSpan = document.getElementById('total-price');
@@ -295,3 +286,68 @@ document.addEventListener('DOMContentLoaded', function () {
         quantityInput.addEventListener('input', updateTotalPrice);
     });
 });
+
+//Main-menu bar
+const dishes = [
+    {
+        name: "Pepperoni Pizza",
+        image: "pizza.jpg"
+    },
+    {
+        name: "Juicy Burger",
+        image: "burger.jpg"
+    },
+    {
+        name: "Italian pasta",
+        image: "italianPastA.jpg"
+    },
+    {
+        name: "Spicy Chicken Tacos",
+        image: "tacos.jpg"
+    },
+    {
+        name: "Mediterranean Quinoa Salad",
+        image: "quinoa_salad.jpg"
+    },
+    {
+        name: "Creamy Tomato Soup",
+        image: "tomato_soup.jpg"
+    }
+];
+
+const dishesContainer = document.querySelector('.main-dishes .row');
+
+dishes.forEach(dish => {
+    const dishElement = `
+        <div class="col">
+            <div class="card h-100">
+                <div class="image-container">
+                    <img src="${dish.image}" class="card-img-top" alt="${dish.name}">
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">${dish.name}</h5>
+                </div>
+            </div>
+        </div>
+    `;
+    dishesContainer.innerHTML += dishElement;
+});
+
+
+    const cards = document.querySelectorAll('.card');
+    cards.forEach(card => {
+        card.addEventListener('click', () => {
+
+            const description = card.querySelector('.dish-description');
+            const imageContainer = card.querySelector('.image-container');
+
+            imageContainer.style.display = imageContainer.style.display === 'none' ? 'block' : 'none';
+            description.style.display = description.style.display === 'none' ? 'block' : 'none';
+
+            if (description.style.display === 'block') {
+                description.textContent = description.dataset.recipe;
+
+            }
+
+        });
+    });
