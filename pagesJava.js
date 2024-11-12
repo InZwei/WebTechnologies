@@ -59,31 +59,41 @@ document.addEventListener('DOMContentLoaded', function() {
     const body = document.body;
     const navbar = document.querySelector('.navbar');
 
-    const savedMode = localStorage.getItem('mode');
+    function getSavedMode() {
+        const currentUser = localStorage.getItem('currentUser');
+        return currentUser ? localStorage.getItem(`mode_${currentUser}`) : null;
+    }
+
+    function saveMode(mode) {
+        const currentUser = localStorage.getItem('currentUser');
+        if (currentUser) {
+            localStorage.setItem(`mode_${currentUser}`, mode);
+        }
+    }
+
+    const savedMode = getSavedMode();
     if (savedMode) {
-        body.classList.add(savedMode);
-        updateNavbar(savedMode); 
+        body.classList.add(savedMode); 
+        updateNavbar(savedMode);
     }
 
 
     modeToggle.addEventListener('click', function() {
         body.classList.toggle('dark-mode');
         const currentMode = body.classList.contains('dark-mode') ? 'dark-mode' : 'light-mode';
-        localStorage.setItem('mode', currentMode);
-        updateNavbar(currentMode); 
+        saveMode(currentMode);
+        updateNavbar(currentMode);
     });
 
 
     function updateNavbar(mode) {
         if (mode === 'dark-mode') {
-
             navbar.classList.remove('navbar-light', 'bg-light');
             navbar.classList.add('navbar-dark', 'bg-dark');
             modeToggle.classList.remove('btn-outline-secondary');
             modeToggle.classList.add('btn-outline-light');
 
         } else {
-
             navbar.classList.remove('navbar-dark', 'bg-dark');
             navbar.classList.add('navbar-light', 'bg-light');
             modeToggle.classList.remove('btn-outline-light');
@@ -121,62 +131,67 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-
-
-
-
     const orderForm = document.getElementById('order-form');
-    if (orderForm){
-        const submitOrderButton = orderForm.querySelector('input[type="submit"]');
-        const nameInput = document.getElementById('name');
-        const phoneInput = document.getElementById('phone');
-        const streetInput = document.getElementById('street');
-        const totalPriceSpan = document.getElementById('total-price');
-
-        submitOrderButton.addEventListener('click', function(event) {
-            event.preventDefault();
+    if (orderForm) {
+    const submitOrderButton = orderForm.querySelector('input[type="submit"]');
+    const nameInput = document.getElementById('name');
+    const phoneInput = document.getElementById('phone');
+    const streetInput = document.getElementById('street');
+    const totalPriceSpan = document.getElementById('total-price');
 
 
-            const orderItems = [];
-            const foodItems = document.querySelectorAll('.food-item .quantity');
-            foodItems.forEach(item => {
-                const quantity = parseInt(item.value) || 0;
-                if (quantity > 0) {
-                    orderItems.push({
-                        name: item.dataset.name,
-                        quantity: quantity,
-                        price: dishes.find(dish => dish.name === item.dataset.name).price,
-                    });
-                }
-            });
-            const drinkItems = document.querySelectorAll('.drink-item .quantity');
-            drinkItems.forEach(item => {
-                const quantity = parseInt(item.value) || 0;
-                if (quantity > 0) {
-                    orderItems.push({
-                        name: item.dataset.name,
-                        quantity: quantity,
-                        price: drinks.find(drink => drink.name === item.dataset.name).price,
-                    });
-                }
-            });
+    submitOrderButton.addEventListener('click', function(event) {
+        event.preventDefault(); 
+
+        const name = nameInput.value.trim();
+        const phone = phoneInput.value.trim();
+        const street = streetInput.value.trim();
+
+        if (!name || !phone || !street) {
+            alert("Please fill in all required fields (name, phone, and address).");
+            return; 
+        }
 
 
-            const orderData = {
-                date: new Date().toLocaleString(),
-                name: nameInput.value,
-                phone: phoneInput.value,
-                street: streetInput.value,
-                items: orderItems,
-                total: parseFloat(totalPriceSpan.textContent.replace('$', '')) 
-            };
-
-            saveOrder(orderData);
-
-            alert('Order placed successfully!');
+        const orderItems = [];
+        const foodItems = document.querySelectorAll('.food-item .quantity');
+        foodItems.forEach(item => {
+            const quantity = parseInt(item.value) || 0;
+            if (quantity > 0) {
+                orderItems.push({
+                    name: item.dataset.name,
+                    quantity: quantity,
+                    price: dishes.find(dish => dish.name === item.dataset.name).price,
+                });
+            }
         });
-    }
 
+        const drinkItems = document.querySelectorAll('.drink-item .quantity');
+        drinkItems.forEach(item => {
+            const quantity = parseInt(item.value) || 0;
+            if (quantity > 0) {
+                orderItems.push({
+                    name: item.dataset.name,
+                    quantity: quantity,
+                    price: drinks.find(drink => drink.name === item.dataset.name).price,
+                });
+            }
+        });
+
+        const orderData = {
+            date: new Date().toLocaleString(),
+            name: name,
+            phone: phone,
+            street: street,
+            items: orderItems,
+            total: parseFloat(totalPriceSpan.textContent.replace('$', '')) 
+        };
+
+        saveOrder(orderData);
+        alert('Order placed successfully!');
+
+    });
+}
 });
 
 
