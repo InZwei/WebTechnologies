@@ -64,6 +64,71 @@
        </div>     
    </main>
 
+    <script>
+        const orderForm = document.getElementById('order-form');
+    if (orderForm) {
+    const submitOrderButton = orderForm.querySelector('input[type="submit"]');
+    const nameInput = document.getElementById('name');
+    const phoneInput = document.getElementById('phone');
+    const streetInput = document.getElementById('street');
+    const totalPriceSpan = document.getElementById('total-price');
+
+
+    submitOrderButton.addEventListener('click', function(event) {
+        event.preventDefault(); 
+
+        const name = nameInput.value.trim();
+        const phone = phoneInput.value.trim();
+        const street = streetInput.value.trim();
+
+        if (!name || !phone || !street) {
+            alert("Please fill in all required fields (name, phone, and address).");
+            return; 
+        }
+
+
+        const orderItems = [];
+        const foodItems = document.querySelectorAll('.food-item .quantity');
+        foodItems.forEach(item => {
+            const quantity = parseInt(item.value) || 0;
+            if (quantity > 0) {
+                orderItems.push({
+                    name: item.dataset.name,
+                    quantity: quantity,
+                    price: dishes.find(dish => dish.name === item.dataset.name).price,
+                });
+            }
+        });
+
+        const drinkItems = document.querySelectorAll('.drink-item .quantity');
+        drinkItems.forEach(item => {
+            const quantity = parseInt(item.value) || 0;
+            if (quantity > 0) {
+                orderItems.push({
+                    name: item.dataset.name,
+                    quantity: quantity,
+                    price: drinks.find(drink => drink.name === item.dataset.name).price,
+                });
+            }
+        });
+
+        const orderData = {
+            date: new Date().toLocaleString(),
+            name: name,
+            phone: phone,
+            street: street,
+            items: orderItems,
+            total: parseFloat(totalPriceSpan.textContent.replace('$', '')) 
+        };
+
+        saveOrder(orderData);
+        alert('Order placed successfully!');
+
+    });
+}
+
+        </script>
+
     
    <footer> 
     <div>Group member: Kekilbaev Mansyr, IT-2308</div>
